@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AERON WEATHER SYSTEM — PROTOTYPE</title>
+    <!-- Premium Futuristic Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #090615 0%, #0f0c20 50%, #030206 100%);
+            --accent-purple: #a855f7;
+            --accent-cyan: #06b6d4;
+            --glass-bg: linear-gradient(135deg, rgba(20, 16, 35, 0.7) 0%, rgba(10, 6, 18, 0.9) 100%);
+            --glass-border: rgba(168, 85, 247, 0.2);
+            --text-glow: drop-shadow(0 0 15px rgba(168, 85, 247, 0.5));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Ambient Background Nodes for High-Tech Aesthetic */
+        .ambient-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent-purple);
+            filter: blur(120px);
+            opacity: 0.15;
+            top: 20%;
+            left: 30%;
+            z-index: -1;
+        }
+
+        /* BLOCK 1: Main Terminal Wrapper Frame */
+        .aeron-core-frame {
+            width: 100%;
+            max-width: 460px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.05);
+            border-radius: 28px;
+            padding: 32px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* BLOCK 2: Brand Identity Pillar */
+        .block-identity {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 16px;
+        }
+        .brand-badge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+        }
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+        }
+        .pulse-node {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #22c55e;
+            animation: pulse-glow 2s infinite;
+        }
+
+        /* BLOCK 3: Futuristic Search Matrix */
+        .block-search-matrix {
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 6px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            transition: all 0.3s ease;
+        }
+        .block-search-matrix:focus-within {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+        }
+        .matrix-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            padding-left: 12px;
+            font-size: 0.95rem;
+        }
+        .matrix-input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+        .matrix-btn {
+            background: var(--accent-purple);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .matrix-btn:hover {
+            background: #9333ea;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* BLOCK 4: Readout Monitor (Main Display) */
+        .block-readout {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .readout-city {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .readout-sub {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 1.5px;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+        .readout-temp-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 15px 0;
+        }
+        .readout-degree {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            filter: var(--text-glow);
+        }
+        .readout-symbol {
+            position: absolute;
+            top: 10px;
+            right: -24px;
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+            font-weight: 400;
+        }
+        .readout-condition-tag {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-purple);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* BLOCK 5: Analytics Cluster */
+        .block-analytics-cluster {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .cluster-node {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 16px;
+            transition: border 0.3s ease;
+        }
+        .cluster-node:hover {
+            border-color: rgba(6, 182, 212, 0.2);
+        }
+        .node-title {
+            display: block;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .node-data {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* BLOCK 6: Persistent Signature Layer */
+        .block-signature-module {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .sig-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent);
+            margin-bottom: 16px;
+        }
+        .sig-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 3px;
+        }
+        .sig-text span {
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 4px;
+            padding-left: 4px;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.8);
+        }
+
+        /* Error/Loading state notification style */
+        .system-log {
+            font-size: 0.75rem;
+            color: #ef4444;
+            text-align: center;
+            margin-top: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            display: none;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <!-- BLOCK 1: Main Framework -->
+    <div class="aeron-core-frame">
+        
+        <!-- BLOCK 2: Identity Badge Layer -->
+        <div class="block-identity">
+            <div class="brand-badge">DEVELOPED BY AERON</div>
+            <div class="system-status">
+                <span class="pulse-node"></span>
+                <span id="statusLog">SYS_LIVE</span>
+            </div>
+        </div>
+
+        <!-- BLOCK 3: Search Module Input -->
+        <div class="block-search-matrix">
+            <input type="text" id="cityInput" class="matrix-input" placeholder="Query location target..." value="Rawalpindi">
+            <button class="matrix-btn" onclick="executeWeatherQuery()">EXECUTE</button>
+        </div>
+
+        <!-- BLOCK 4: Dynamic Terminal Readout Monitor -->
+        <div class="block-readout">
+            <h1 class="readout-city" id="cityDisplay">RAWALPINDI</h1>
+            <p class="readout-sub" id="countryDisplay">PK</p>
+            
+            <div class="readout-temp-wrapper">
+                <span class="readout-degree" id="tempDisplay">32</span>
+                <span class="readout-symbol">°C</span>
+            </div>
+            
+            <div class="readout-condition-tag" id="conditionDisplay">ATMOSPHERE: INITIALIZED</div>
+        </div>
+
+        <!-- BLOCK 5: Analytics Metric Grid -->
+        <div class="block-analytics-cluster">
+            <div class="cluster-node">
+                <span class="node-title">HUMIDITY INDEX</span>
+                <span class="node-data" id="humidityDisplay">45%</span>
+            </div>
+            <div class="cluster-node">
+                <span class="node-title">VELOCITY MATRIX</span>
+                <span class="node-data" id="windDisplay">12 km/h</span>
+            </div>
+        </div>
+
+        <!-- System internal error logging output inside terminal -->
+        <div class="system-log" id="errorLog">ERR: TARGET NOT FOUND</div>
+
+        <!-- BLOCK 6: Hardcoded Core Signature Module -->
+        <div class="block-signature-module">
+            <div class="sig-line"></div>
+            <p class="sig-text">SYSTEM CORE DEVELOPED BY <span>AERON</span></p>
+        </div>
+
+    </div>
+
+    <!-- API Core Operations Engine Script -->
+    <script>
+        // ==========================================
+        //  PUT YOUR OPENWEATHERMAP API KEY HERE
+        // ==========================================
+        const apiKey = "YOUR_API_KEY_HERE"; 
+
+        async function executeWeatherQuery() {
+            const city = document.getElementById('cityInput').value.trim();
+            const errorLog = document.getElementById('errorLog');
+            const statusLog = document.getElementById('statusLog');
+
+            if (!city) return;
+
+            // UI Feedback state change
+            statusLog.innerText = "SYS_FETCHING";
+            errorLog.style.display = "none";
+
+            // If API key is not configured yet, run seamless sandbox mode simulation
+            if (apiKey === "YOUR_API_KEY_HERE" || apiKey === "") {
+                setTimeout(() => {
+                    simulateData(city);
+                    statusLog.innerText = "SYS_SANDBOX";
+                }, 400);
+                return;
+            }
+
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("Invalid Location Target");
+                }
+                const data = await response.json();
+                
+                // Parse and render data updates dynamically into structural blocks
+                document.getElementById('cityDisplay').innerText = data.name;
+                document.getElementById('countryDisplay').innerText = data.sys.country;
+                document.getElementById('tempDisplay').innerText = Math.round(data.main.temp);
+                document.getElementById('conditionDisplay').innerText = `ATMOSPHERE: ${data.weather[0].description}`;
+                document.getElementById('humidityDisplay').innerText = `${data.main.humidity}%`;
+                document.getElementById('windDisplay').innerText = `${Math.round(data.wind.speed * 3.6)} km/h`;
+                
+                statusLog.innerText = "SYS_LIVE";
+            } catch (err) {
+                errorLog.innerText = `CORE_ERR: ${err.message.toUpperCase()}`;
+                errorLog.style.display = "block";
+                statusLog.innerText = "SYS_ERROR";
+            }
+        }
+
+        // Automatic fallback engine simulation layout if API code isn't deployed yet
+        function simulateData(city) {
+            document.getElementById('cityDisplay').innerText = city;
+            document.getElementById('countryDisplay').innerText = "GLOBAL ZONE";
+            document.getElementById('tempDisplay').innerText = Math.floor(Math.random() * (36 - 14 + 1)) + 14;
+            
+            const conds = ["CLEAR MATRIX", "HEAVY OVERCAST", "PARTIAL SHADOWS", "THUNDERSTORM MODE"];
+            document.getElementById('conditionDisplay').innerText = `ATMOSPHERE: ${conds[Math.floor(Math.random() * conds.length)]}`;
+            document.getElementById('humidityDisplay').innerText = `${Math.floor(Math.random() * 40) + 40}%`;
+            document.getElementById('windDisplay').innerText = `${Math.floor(Math.random() * 20) + 5} km/h`;
+        }
+
+        // Trigger default sequence setup upon loading core component
+        window.onload = () => {
+            executeWeatherQuery();
+        };
+    </script>
+</body>
+</html>
