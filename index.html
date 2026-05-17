@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AERON WEATHER SYSTEM — PROTOTYPE</title>
-    <!-- Premium Futuristic Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -31,39 +30,22 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow-x: hidden;
             padding: 20px;
         }
 
-        /* Ambient Background Nodes for High-Tech Aesthetic */
-        .ambient-glow {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: var(--accent-purple);
-            filter: blur(120px);
-            opacity: 0.15;
-            top: 20%;
-            left: 30%;
-            z-index: -1;
-        }
-
-        /* BLOCK 1: Main Terminal Wrapper Frame */
         .aeron-core-frame {
             width: 100%;
             max-width: 460px;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
             border-radius: 28px;
             padding: 32px;
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             position: relative;
-            overflow: hidden;
         }
 
-        /* BLOCK 2: Brand Identity Pillar */
         .block-identity {
             display: flex;
             justify-content: space-between;
@@ -78,7 +60,6 @@
             font-weight: 700;
             letter-spacing: 2px;
             color: var(--accent-cyan);
-            text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
         }
         .system-status {
             display: flex;
@@ -86,7 +67,6 @@
             gap: 6px;
             font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 1px;
         }
         .pulse-node {
             width: 6px;
@@ -94,10 +74,8 @@
             background: #22c55e;
             border-radius: 50%;
             box-shadow: 0 0 8px #22c55e;
-            animation: pulse-glow 2s infinite;
         }
 
-        /* BLOCK 3: Futuristic Search Matrix */
         .block-search-matrix {
             display: flex;
             gap: 10px;
@@ -106,11 +84,6 @@
             padding: 6px;
             border-radius: 16px;
             margin-bottom: 32px;
-            transition: all 0.3s ease;
-        }
-        .block-search-matrix:focus-within {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
         }
         .matrix-input {
             flex: 1;
@@ -120,9 +93,6 @@
             color: #fff;
             padding-left: 12px;
             font-size: 0.95rem;
-        }
-        .matrix-input::placeholder {
-            color: rgba(255, 255, 255, 0.25);
         }
         .matrix-btn {
             background: var(--accent-purple);
@@ -135,15 +105,8 @@
             font-weight: 700;
             cursor: pointer;
             letter-spacing: 1px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .matrix-btn:hover {
-            background: #9333ea;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
-            transform: translateY(-1px);
         }
 
-        /* BLOCK 4: Readout Monitor (Main Display) */
         .block-readout {
             text-align: center;
             margin-bottom: 35px;
@@ -162,7 +125,6 @@
             color: rgba(255, 255, 255, 0.35);
             letter-spacing: 1.5px;
             margin-top: 4px;
-            text-transform: uppercase;
         }
         .readout-temp-wrapper {
             position: relative;
@@ -183,7 +145,6 @@
             right: -24px;
             font-size: 1.8rem;
             color: var(--accent-cyan);
-            font-weight: 400;
         }
         .readout-condition-tag {
             font-size: 0.8rem;
@@ -191,10 +152,8 @@
             color: var(--accent-purple);
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-top: 5px;
         }
 
-        /* BLOCK 5: Analytics Cluster */
         .block-analytics-cluster {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -206,10 +165,6 @@
             border: 1px solid rgba(255, 255, 255, 0.03);
             border-radius: 16px;
             padding: 16px;
-            transition: border 0.3s ease;
-        }
-        .cluster-node:hover {
-            border-color: rgba(6, 182, 212, 0.2);
         }
         .node-title {
             display: block;
@@ -222,10 +177,15 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.2rem;
             font-weight: 600;
-            color: #fff;
         }
 
-        /* BLOCK 6: Persistent Signature Layer */
+        .system-log {
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
         .block-signature-module {
             text-align: center;
             margin-top: 10px;
@@ -244,78 +204,52 @@
         .sig-text span {
             color: #fff;
             font-weight: 700;
-            letter-spacing: 4px;
-            padding-left: 4px;
             text-shadow: 0 0 12px rgba(168, 85, 247, 0.8);
-        }
-
-        /* Error/Loading state notification style */
-        .system-log {
-            font-size: 0.75rem;
-            color: #ef4444;
-            text-align: center;
-            margin-top: 10px;
-            font-family: 'Space Grotesk', sans-serif;
-            display: none;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="ambient-glow"></div>
-
-    <!-- BLOCK 1: Main Framework -->
     <div class="aeron-core-frame">
         
-        <!-- BLOCK 2: Identity Badge Layer -->
         <div class="block-identity">
             <div class="brand-badge">DEVELOPED BY AERON</div>
             <div class="system-status">
-                <span class="pulse-node"></span>
+                <span class="pulse-node" id="statusNode"></span>
                 <span id="statusLog">SYS_LIVE</span>
             </div>
         </div>
 
-        <!-- BLOCK 3: Search Module Input -->
         <div class="block-search-matrix">
-            <input type="text" id="cityInput" class="matrix-input" placeholder="Query location target..." value="Rawalpindi">
+            <input type="text" id="cityInput" class="matrix-input" placeholder="Query location target..." value="Taunsa">
             <button class="matrix-btn" onclick="executeWeatherQuery()">EXECUTE</button>
         </div>
 
-        <!-- BLOCK 4: Dynamic Terminal Readout Monitor -->
         <div class="block-readout">
-            <h1 class="readout-city" id="cityDisplay">RAWALPINDI</h1>
-            <p class="readout-sub" id="countryDisplay">PK</p>
+            <h1 class="readout-city" id="cityDisplay">TAUNSA</h1>
+            <p class="readout-sub" id="countryDisplay">--</p>
             
             <div class="readout-temp-wrapper">
-                <span class="readout-degree" id="tempDisplay">32</span>
+                <span class="readout-degree" id="tempDisplay">--</span>
                 <span class="readout-symbol">°C</span>
             </div>
             
             <div class="readout-condition-tag" id="conditionDisplay">ATMOSPHERE: INITIALIZED</div>
         </div>
 
-        <!-- BLOCK 5: Analytics Metric Grid -->
         <div class="block-analytics-cluster">
             <div class="cluster-node">
                 <span class="node-title">HUMIDITY INDEX</span>
-                <span class="node-data" id="humidityDisplay">45%</span>
+                <span class="node-data" id="humidityDisplay">--%</span>
             </div>
             <div class="cluster-node">
                 <span class="node-title">VELOCITY MATRIX</span>
-                <span class="node-data" id="windDisplay">12 km/h</span>
+                <span class="node-data" id="windDisplay">-- km/h</span>
             </div>
         </div>
 
-        <!-- System internal error logging output inside terminal -->
-        <div class="system-log" id="errorLog">ERR: TARGET NOT FOUND</div>
+        <div class="system-log" id="errorLog" style="color: #22c55e;">SYS_LOG: INSPIRED KEYLESS CORE ACTIVE</div>
 
-        <!-- BLOCK 6: Hardcoded Core Signature Module -->
         <div class="block-signature-module">
             <div class="sig-line"></div>
             <p class="sig-text">SYSTEM CORE DEVELOPED BY <span>AERON</span></p>
@@ -323,71 +257,86 @@
 
     </div>
 
-    <!-- API Core Operations Engine Script -->
     <script>
-        // ==========================================
-        //  PUT YOUR OPENWEATHERMAP API KEY HERE
-        // ==========================================
-        const apiKey = "YOUR_API_KEY_HERE"; 
+        // Inspired mapping dictionary for Open-Meteo weather structures
+        function decodeAtmosphericMatrix(code) {
+            const index = {
+                0: "CLEAR SKY", 1: "MAINLY CLEAR", 2: "PARTLY CLOUDY", 3: "OVERCAST",
+                45: "FOG MATRIX", 48: "RIME FOG", 51: "LIGHT DRIZZLE", 53: "MODERATE DRIZZLE",
+                55: "DENSE DRIZZLE", 61: "SLIGHT RAIN", 63: "MODERATE RAIN", 65: "HEAVY RAIN",
+                71: "LIGHT SNOW", 73: "MODERATE SNOW", 75: "HEAVY SNOW",
+                80: "LIGHT SHOWERS", 81: "MODERATE SHOWERS", 82: "VIOLENT SHOWERS",
+                95: "THUNDERSTORM SHIFT"
+            };
+            return index[code] || "ATMOSPHERIC STABILITY ACTIVE";
+        }
 
         async function executeWeatherQuery() {
-            const city = document.getElementById('cityInput').value.trim();
+            const cityInput = document.getElementById('cityInput').value.trim();
             const errorLog = document.getElementById('errorLog');
             const statusLog = document.getElementById('statusLog');
+            const statusNode = document.getElementById('statusNode');
 
-            if (!city) return;
+            if (!cityInput) return;
 
-            // UI Feedback state change
-            statusLog.innerText = "SYS_FETCHING";
-            errorLog.style.display = "none";
-
-            // If API key is not configured yet, run seamless sandbox mode simulation
-            if (apiKey === "YOUR_API_KEY_HERE" || apiKey === "") {
-                setTimeout(() => {
-                    simulateData(city);
-                    statusLog.innerText = "SYS_SANDBOX";
-                }, 400);
-                return;
-            }
-
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+            statusLog.innerText = "SYS_PARSING";
+            statusNode.style.background = "#06b6d4";
+            statusNode.style.boxShadow = "0 0 8px #06b6d4";
 
             try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error("Invalid Location Target");
+                // Step 1: Extract coordinates from Geocoding Open-Meteo structural matrix
+                const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityInput)}&count=1&language=en&format=json`;
+                const geoResponse = await fetch(geoUrl);
+                const geoData = await geoResponse.json();
+
+                if (!geoData.results || geoData.results.length === 0) {
+                    throw new Error("Location Matrix Not Found");
                 }
-                const data = await response.json();
+
+                const node = geoData.results[0];
+                const latitude = node.latitude;
+                const longitude = node.longitude;
+
+                statusLog.innerText = "SYS_STREAMING";
+
+                // Step 2: Fetch Live Parameters inspired from open architecture payloads
+                const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&wind_speed_unit=kmh`;
+                const weatherResponse = await fetch(weatherUrl);
+                const weatherData = await weatherResponse.json();
+
+                const freshStream = weatherData.current;
+
+                // Step 3: Populate DOM Framework
+                document.getElementById('cityDisplay').innerText = node.name.toUpperCase();
+                document.getElementById('countryDisplay').innerText = node.country_code ? node.country_code.toUpperCase() : "GLOBAL NODE";
+                document.getElementById('tempDisplay').innerText = Math.round(freshStream.temperature_2m);
+                document.getElementById('conditionDisplay').innerText = `ATMOSPHERE: ${decodeAtmosphericMatrix(freshStream.weather_code)}`;
+                document.getElementById('humidityDisplay').innerText = `${freshStream.relative_humidity_2m}%`;
+                document.getElementById('windDisplay').innerText = `${Math.round(freshStream.wind_speed_10m)} km/h`;
                 
-                // Parse and render data updates dynamically into structural blocks
-                document.getElementById('cityDisplay').innerText = data.name;
-                document.getElementById('countryDisplay').innerText = data.sys.country;
-                document.getElementById('tempDisplay').innerText = Math.round(data.main.temp);
-                document.getElementById('conditionDisplay').innerText = `ATMOSPHERE: ${data.weather[0].description}`;
-                document.getElementById('humidityDisplay').innerText = `${data.main.humidity}%`;
-                document.getElementById('windDisplay').innerText = `${Math.round(data.wind.speed * 3.6)} km/h`;
-                
+                errorLog.innerText = "SYS_LOG: LIVE SECURE SYNC STABLE";
+                errorLog.style.color = "#22c55e";
                 statusLog.innerText = "SYS_LIVE";
+                statusNode.style.background = "#22c55e";
+                statusNode.style.boxShadow = "0 0 8px #22c55e";
+
             } catch (err) {
+                // Clean structural fallbacks on dynamic failure
+                document.getElementById('cityDisplay').innerText = cityInput;
+                document.getElementById('countryDisplay').innerText = "--";
+                document.getElementById('tempDisplay').innerText = "--";
+                document.getElementById('conditionDisplay').innerText = "ATMOSPHERE: LINK DETACHED";
+                document.getElementById('humidityDisplay').innerText = "--%";
+                document.getElementById('windDisplay').innerText = "-- km/h";
+
                 errorLog.innerText = `CORE_ERR: ${err.message.toUpperCase()}`;
-                errorLog.style.display = "block";
+                errorLog.style.color = "#ef4444";
                 statusLog.innerText = "SYS_ERROR";
+                statusNode.style.background = "#ef4444";
+                statusNode.style.boxShadow = "0 0 8px #ef4444";
             }
         }
 
-        // Automatic fallback engine simulation layout if API code isn't deployed yet
-        function simulateData(city) {
-            document.getElementById('cityDisplay').innerText = city;
-            document.getElementById('countryDisplay').innerText = "GLOBAL ZONE";
-            document.getElementById('tempDisplay').innerText = Math.floor(Math.random() * (36 - 14 + 1)) + 14;
-            
-            const conds = ["CLEAR MATRIX", "HEAVY OVERCAST", "PARTIAL SHADOWS", "THUNDERSTORM MODE"];
-            document.getElementById('conditionDisplay').innerText = `ATMOSPHERE: ${conds[Math.floor(Math.random() * conds.length)]}`;
-            document.getElementById('humidityDisplay').innerText = `${Math.floor(Math.random() * 40) + 40}%`;
-            document.getElementById('windDisplay').innerText = `${Math.floor(Math.random() * 20) + 5} km/h`;
-        }
-
-        // Trigger default sequence setup upon loading core component
         window.onload = () => {
             executeWeatherQuery();
         };
